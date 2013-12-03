@@ -4,6 +4,7 @@ simple-calendar
 It's a no-nonsense pop up calendar date picker ting.
 It handles leap years and centuries, is super-easily adaptable to localisation and handles all it's own event management, returning an ISO Date String to a user-defined callback.
 
+![simple-calendar screenshot](/screenshots/screenshot.png "Outta the box styling")
 
 How To
 ------
