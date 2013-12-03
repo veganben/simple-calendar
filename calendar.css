@@ -1,0 +1,54 @@
+#calendar {
+    display: block;
+    position: absolute;
+    top: 66px;
+    left: 50px;
+    font-size: 2rem;
+    background-color: white;
+    border: 5px solid rgba(0,0,0,0.2);
+    border-radius: 6px;
+    z-index: 99;
+}
+#calendar th,
+#calendar tbody td  {
+    width: 14%;
+    text-align: center;
+}
+
+#timeDate time {
+	font-family: museo-slab;
+	font-size: 119%;
+	line-height: 3rem;
+}
+#timeDate {
+	font-family: museo-slab;
+	font-size: 119%;
+	line-height: 3rem;
+}
+#calendar thead tr th,
+#calendar tbody td {
+	font-family: museo-slab;
+    padding: 1rem;
+}
+
+table.zebra tbody tr td {
+    background: white;
+    color: #6FA92C;
+    border-top: 1px solid #168200;
+}
+
+table.zebra tbody tr:first-child td {
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+table.zebra tbody tr:nth-child(even) td {
+   	background: #6FA92C !important;
+	color: white !important;
+}
+
+table.zebra tbody tr td.inactive,
+table.zebra tbody tr:nth-child(even) td.inactive {
+    background: #ccc !important;
+    color: #999 !important;
+    border-top: 1px solid #666;
+}
