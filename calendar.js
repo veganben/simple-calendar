@@ -1,12 +1,11 @@
-var Calendar = {
+var Calendar = (function(){
 
-    monthName: ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-    monthLength: [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+    var monthName = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var monthLength = [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var clickHandler = function() {};
+    var triggerElement: null;
 
-    clickHandler: function() {},
-    triggerElement: null,
-
-	calendarEvents: function(e) {
+	var calendarEvents = function(e) {
 	    var t = e.target,
 	        h = t.innerHTML,
 	        nextM,
@@ -32,35 +31,21 @@ var Calendar = {
 	        return false;
 	    }
 	    if ( h == parseInt(h) && h < 32) {
-	        if (core.hasClassName(t, "hasevent")){
-	            showId = tc.substr(tc.indexOf("showid_")+7,2);
-	            console.log(showid);
-
-                url = "/php/getShows.php?showID=" + showId;
-                simpleAjax(url, function(data){
-                    var film = JSON.parse(data);
-                    console.log(film);
-                });
-
-	        } else {
-                // core.show($("addShowFormContainer"));
-	            // $("addshowingError").innerHTML = "";
-                Calendar.triggerElement.value = "" + h + ". " + Calendar.monthName[saved.month] + " " + saved.year;
-                var theDate = new Date(saved.year, saved.month, h).toISOString();
-                Calendar.triggerElement.setAttribute("data-date", theDate);
-                core.hide($("calendar"));
-	        }
-	        Calendar.clickHandler();
+            Calendar.triggerElement.value = "" + h + ". " + Calendar.monthName[saved.month] + " " + saved.year;
+            var theDate = new Date(saved.year, saved.month, h).toISOString();
+            Calendar.triggerElement.setAttribute("data-date", theDate);
+            core.hide($("calendar"));
+	        Calendar.clickHandler(theDate);
 	    }
-	},
+	};
 
-	currentMonth: {},
+	var currentMonth = {};
 
-	showCalendar: function() {
+	var showCalendar = function() {
 	    core.show($("calendar"));
-	},
+	};
 
-	createCalendar: function(month, year) {
+	var createCalendar = function(month, year) {
 	    var t = new Date();
 	    if((month || month == 0) && year) {
 	        d = new Date(year, month, 1);
@@ -100,13 +85,16 @@ var Calendar = {
 	            $("#calendar td")[parseInt(dateParts[2])+offset].className = "hasevent showid_"+allshows[i].id ;
 	        }
 	    }*/
-	},
+	};
 
-    init: function(openElement, callback) {
+    init = function(openElement, callback) {
 		Calendar.clickHandler = callback;
         Calendar.triggerElement = openElement;
         Calendar.triggerElement.addEventListener("click", Calendar.showCalendar,false)
 		$("calendar").addEventListener("click", Calendar.calendarEvents, false);
         Calendar.createCalendar()
     }
-};
+    return {
+        init: init
+    }
+}());
