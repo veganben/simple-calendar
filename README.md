@@ -17,14 +17,15 @@ add a link to the js file and another one to the css
 and, from your own javascript, initialise with a DOM node and a callback.
 
 
-Calendar.init(domNode, callback);
+    Calendar.init(domNode, callback);
 
-The dom node is the element which, when clicked, triggers the pop up calendar. Style it's position yourself.
+The dom node is the element which, when clicked, triggers the pop up calendar. Style its position yourself.
 
 The callback function should be able to handle an ISO Date format parameter (it's a string)
 
 This ISO Date is also dumped into the DOM as a "data-date" attribute of the triggering element (the one you passed in to the init)
 
+calendar.html has a full working example - take a look and adapt it for yourself.
 
 Told you it was no-nonsense.
 
