@@ -1,9 +1,12 @@
 var Calendar = (function(){
 
     var monthName = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var dayNames = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
     var monthLength = [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+	var currentMonth = {};
     var clickHandler = function() {};
     var triggerElement: null;
+    var isOpen = false;
 
 	var calendarEvents = function(e) {
 	    var t = e.target,
@@ -34,15 +37,31 @@ var Calendar = (function(){
             Calendar.triggerElement.value = "" + h + ". " + Calendar.monthName[saved.month] + " " + saved.year;
             var theDate = new Date(saved.year, saved.month, h).toISOString();
             Calendar.triggerElement.setAttribute("data-date", theDate);
-            core.hide($("calendar"));
+            Calendar.hideCalendar();
 	        Calendar.clickHandler(theDate);
 	    }
 	};
 
-	var currentMonth = {};
+	var windowClick = function(e) {
+        var el = e.target;
+        e.preventDefault();
+        if(el != Calendar.triggerElement && !core.isDescendant($("calendar"), el)) {
+            if(Calendar.isOpen) {
+                Calendar.hideCalendar();
+            }
+        }
+    };
+
+	var hideCalendar = function() {
+        core.hide($("calendar"));
+        window.removeEventListener("click", Calendar.windowClick, false);
+        Calendar.isOpen = false;
+    };
 
 	var showCalendar = function() {
 	    core.show($("calendar"));
+	    window.addEventListener("click", Calendar.windowClick, false);
+	    Calendar.isOpen = true;
 	};
 
 	var createCalendar = function(month, year) {
@@ -69,7 +88,7 @@ var Calendar = (function(){
 	    offset = (theFirst.getDay()  % 7) -1;
 
 	    Calendar.monthLength[1] = ( (fullYear % 4 !==0 ) && ( fullYear % 400 !== 0) ? 28 : 29 );
-	    $("#calendar>tbody")[0].innerHTML = "";
+	    $(".easy-calendar>tbody")[0].innerHTML = "";
 	    for ( i = (-1*offset), k = 0; i < ( 42 - offset); i++, k++, j = k % 7) {
 	        calString += "<td" + ( i > 0 && i <= Calendar.monthLength[month] ? (earlierThanThisMonth || thisIsThisMonth && i < t.getDate() ? inactiveClass : "") + ">" + i : ">") + "</td>";
 	        if(j == 6 && i >=0 ){calString += "</tr><tr>"}
@@ -77,23 +96,28 @@ var Calendar = (function(){
 	    $("timeDate").innerHTML = '<time>' + monthName + '</time> <time datetime="'+ fullYear + '-'+ month+'">' + fullYear + '</time>'
 
 	    $("#calendar>tbody")[0].innerHTML = calString;
-
-	    /*for(i = 0, j = allshows.length-1; i < j; i++){
-	        date = allshows[i].start_time.split(" ")[0];
-	        dateParts = date.split("-");
-	        if (dateParts[0] == fullYear && dateParts[1]-1 == month){
-	            $("#calendar td")[parseInt(dateParts[2])+offset].className = "hasevent showid_"+allshows[i].id ;
-	        }
-	    }*/
 	};
 
-    init = function(openElement, callback) {
+    var createStructure: function() {
+        var calendarElement = $(".easy-calendar",0),
+            output = "";
+        core.addClassName(calendarElement, "zebra calendar hidden");
+        output += "<thead><tr><th>&lt;</th><th colspan='5' id='timeDate'><time></time><time datetime></time></th><th>&gt;</th><tr>";
+        for (var i=0;i<7;i++){
+            output += "<th>" + Calendar.dayNames[i] + "</th>";
+        }
+        output += "</tr></thead><tbody></tbody>";
+        calendarElement.innerHTML = output;
+        Calendar.createCalendar();
+    };
+
+    var init = function(openElement, callback) {
 		Calendar.clickHandler = callback;
         Calendar.triggerElement = openElement;
         Calendar.triggerElement.addEventListener("click", Calendar.showCalendar,false)
 		$("calendar").addEventListener("click", Calendar.calendarEvents, false);
-        Calendar.createCalendar()
-    }
+        Calendar.createStructure();
+    };
     return {
         init: init
     }
