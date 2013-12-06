@@ -21,7 +21,9 @@ You're going to need some DOM nodes.
 * In the example calendar.html, there is also an input to dump the picked date into. You're probably going to want to do something more interesting than that, though
 
     &lt;button id="create-calendar" class="add">Pick a Date&lt;/button>
+
     &lt;input id="datePicked" value="" />
+
     &lt;table id="calendar" class="easy-calendar">&lt;/table>
 
 and, from your own javascript, initialise with a DOM node and a callback.
