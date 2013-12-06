@@ -16,13 +16,13 @@ add a link to the js file and another one to the css
 
 You're going to need some DOM nodes.
 
-- Something to trigger it
-- A TABLE element to build the calendar in
-- In the example calendar.html, there is also an input to dump the picked date into. You're probably going to want to do something more interesting than that, though
+* Something to trigger it
+* A TABLE element to build the calendar in
+* In the example calendar.html, there is also an input to dump the picked date into. You're probably going to want to do something more interesting than that, though
 
-    <button id="create-calendar" class="add">Pick a Date</button>
-    <input id="datePicked" value="" />
-    <table id="calendar" class="easy-calendar"></table>
+    &lt;button id="create-calendar" class="add">Pick a Date&lt;/button>
+    &lt;input id="datePicked" value="" />
+    &lt;table id="calendar" class="easy-calendar">&lt;/table>
 
 and, from your own javascript, initialise with a DOM node and a callback.
 
