@@ -1,3 +1,11 @@
+.shown {
+    display: block !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
 #calendar {
     display: block;
     position: absolute;

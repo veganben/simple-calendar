@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <title>A Couldn't-Be-Simpler Calendar Date Picker</title>
+
+    <link rel="stylesheet" type="text/css" href="calendar.css" />
+    <script src="calendar.js" type="text/javascript"></script>
+
+    <script>
+
+    var initCalendar = function() {
+        var myCalendar = SimpleCalendar.init($("create-calendar"),  function(ISOdate) {
+            $("datePicked").value = ISOdate;
+        });
+    };
+
+    document.addEventListener("DOMContentLoaded", initCalendar, false);
+    </script>
+
+</head>
+<body>
+
+    <button id="create-calendar" class="add">Pick a Date</button>
+    <input id="datePicked" value="" />
+    <table id="calendar" class="easy-calendar"></table>
+
+</body>
