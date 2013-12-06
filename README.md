@@ -26,7 +26,7 @@ You're going to need some DOM nodes.
 
     &lt;table id="calendar" class="easy-calendar">&lt;/table>
 
-and, from your own javascript, initialise with a DOM node and a callback.
+and, from your own javascript, initialise with the DOM node which should trigger the appearance of the calendar and a callback to handle the ISO date returned when the user selects a date
 
 
     var initCalendar = function() {
