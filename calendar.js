@@ -108,7 +108,7 @@ var SimpleCalendar = (function(){
 	    }
 	    if ( h == parseInt(h) && h < 32) {
             triggerElement.value = "" + h + ". " + monthNames[saved.month] + " " + saved.year;
-            var theDate = new Date(saved.year, saved.month, h).toISOString();
+            var theDate = new Date(saved.year, saved.month, h, 12, 0).toISOString();
             triggerElement.setAttribute("data-date", theDate);
             hideCalendar();
 	        clickHandler(theDate);
